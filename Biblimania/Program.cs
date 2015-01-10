@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using System.Data;
 
 using Biblimania.Menu;
-using Biblimania.Connection;
-using Bibliemania.Model;
 
 namespace Biblimania
 {

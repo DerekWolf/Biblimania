@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bibliemania.Model
+namespace Biblimania.Model
 {
     abstract class Media
     {
