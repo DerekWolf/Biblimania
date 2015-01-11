@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Biblimania.Logs;
 
 namespace Biblimania.Menu
 {
@@ -21,6 +22,7 @@ namespace Biblimania.Menu
                 catch (FormatException e)
                 {
                     Console.WriteLine("Erreur de format. Le type attendu est {0}. Veuillez re-essayer.", typeof(T).Name);
+                    Program.appLoger.Write(AppLogger.TypeError.Error, e.Message);
                 }
             }
         }
