@@ -13,7 +13,7 @@ namespace Biblimania.Models
 
         public Book(int id) : base(id)
         {
-
+            
         }
 
         public Book(int id, string titre, int nbStock, string artiste, string style) : base(id, titre, nbStock)

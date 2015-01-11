@@ -91,6 +91,12 @@ namespace Biblimania.Menu
                     case 8:
                         Action[8].ActionToDo.Invoke();
                         break;
+                    case 9:
+                        Action[9].ActionToDo.Invoke();
+                        break;
+                    case 10:
+                        Action[10].ActionToDo.Invoke();
+                        break;
                     default:
                         Console.WriteLine("Choix erroné.");
                         break;

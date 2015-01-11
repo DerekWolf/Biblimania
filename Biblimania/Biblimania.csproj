@@ -46,6 +46,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Biblimania.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -64,6 +67,7 @@
       <DependentUpon>BiblimaniaDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Connection\ConnectionManager.cs" />
+    <Compile Include="Logs\AppLogger.cs" />
     <Compile Include="Menu\QuestionMenuManager.cs" />
     <Compile Include="Menu\MenuManager.cs" />
     <Compile Include="Menu\MenuAction.cs" />
