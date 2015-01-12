@@ -9,20 +9,15 @@ namespace Biblimania.Models
 {
     abstract class Media : IMedia
     {
-        public event EventHandler Borrowed;
-        public event EventHandler BrangBack;
+        static public event EventHandler Borrowed;
 
         protected int Identifiant;
         protected string Titre;
         protected int NombreEnStock;
 
-        private MediaEventListener Listener { get; set; }
-
         public Media(int id)
         {
             Identifiant = id;
-
-            StartListening();
         }
 
         public Media(int id, string titre, int nmbStock)
@@ -30,13 +25,6 @@ namespace Biblimania.Models
             Identifiant = id;
             Titre = titre;
             NombreEnStock = nmbStock;
-
-            StartListening();
-        }
-
-        private void StartListening()
-        {
-            Listener = new MediaEventListener(this);
         }
 
         protected virtual void OnBorrowed(EventArgs e)
@@ -44,14 +32,6 @@ namespace Biblimania.Models
             if (Borrowed != null)
             {
                 Borrowed(this, e);
-            }
-        }
-
-        protected virtual void OnBrangBack(EventArgs e)
-        {
-            if (BrangBack != null)
-            {
-                BrangBack(this, e);
             }
         }
 
@@ -64,7 +44,6 @@ namespace Biblimania.Models
         public void BringBack()
         {
             NombreEnStock++;
-            OnBrangBack(EventArgs.Empty);
         }
 
         public virtual string ToString()

@@ -10,25 +10,15 @@ namespace Biblimania.Listeners
 {
     class MediaEventListener
     {
-        private Media _media;
-
-        public MediaEventListener(Media media)
+        public MediaEventListener()
         {
-            _media = media;
-            _media.Borrowed += new EventHandler(MediaBorrowed);
-            _media.BrangBack += new EventHandler(MediaBrangBack);
+            Media.Borrowed += new EventHandler(MediaBorrowed);
         }
 
         private void MediaBorrowed(object sender, EventArgs e)
         {
             Media media = sender as Media;
             Console.WriteLine("Emprunté : {0}", media.ToString());
-        }
-
-        private void MediaBrangBack(object sender, EventArgs e)
-        {
-            Media media = sender as Media;
-            Console.WriteLine("Ramené : {0}", media.ToString());
         }
     }
 }
