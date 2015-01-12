@@ -7,25 +7,30 @@ using System.Threading.Tasks;
 using System.Data;
 
 using Biblimania.Menu;
-using Biblimania.Logs;
+using Biblimania.Listeners;
+using Biblimania.Models;
 
 namespace Biblimania
 {
     class Program
     {
         // Set the logger (the path can be absolute or relative)
-        static public AppLogger appLoger = new AppLogger("error.log");
+        static public AppLogger appLogger = new AppLogger("error.log");
+        static public MenuManager menuManager;
 
         static void Main(string[] args)
         {
             try
             {
-                MenuManager mm = new MenuManager();
-                mm.Launch();
+                // Retrieve all Medias available
+                MediaManager.Initialize();
+
+                menuManager = new MenuManager();
+                menuManager.Launch();
             }
             catch (Exception e)
             {
-                appLoger.Write(AppLogger.TypeError.Error, e.Message, e.Source);
+                appLogger.Write(AppLogger.TypeError.Error, e.Message, e.Source);
             }
         }
     }

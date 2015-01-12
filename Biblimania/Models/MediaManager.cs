@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Biblimania.Listeners;
 
 namespace Biblimania.Models
 {
     static class MediaManager
     {
+        static public List<Media> Medias { get; private set; }
+        
+        static public void Initialize()
+        {
+            Medias = GetAll();
+        }
+
         public static void Save<T>(T media)
         {
             throw new NotImplementedException();
@@ -35,15 +43,15 @@ namespace Biblimania.Models
             // TODO
         }
 
-        public static void BringBack<T>(T media)
+        public static void BringBack<T>(T media) where T : IMedia
         {
-            throw new NotImplementedException();
+            media.BringBack();
             // TODO
         }
 
-        public static void Borrow<T>(T media)
+        public static void Borrow<T>(T media) where T : IMedia
         {
-            throw new NotImplementedException();
+            media.Borrow();
             // TODO
         }
     }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 
-using Biblimania.Logs;
+using Biblimania.Listeners;
 
 namespace Biblimania.Connection
 {
@@ -15,7 +15,7 @@ namespace Biblimania.Connection
         {
             get
             {
-                Program.appLoger.Write(AppLogger.TypeError.Info, "Accessing the database");
+                Program.appLogger.Write(AppLogger.TypeError.Info, "Accessing the database");
                 return ConfigurationManager.ConnectionStrings["MainDatabaseConnectionString"].ConnectionString;
             }
         }

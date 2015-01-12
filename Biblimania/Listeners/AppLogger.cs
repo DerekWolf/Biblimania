@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace Biblimania.Logs
+namespace Biblimania.Listeners
 {
     class AppLogger
     {

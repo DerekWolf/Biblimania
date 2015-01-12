@@ -67,12 +67,14 @@
       <DependentUpon>BiblimaniaDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Connection\ConnectionManager.cs" />
-    <Compile Include="Logs\AppLogger.cs" />
+    <Compile Include="Listeners\AppLogger.cs" />
+    <Compile Include="Listeners\MediaEventListener.cs" />
     <Compile Include="Menu\QuestionMenuManager.cs" />
     <Compile Include="Menu\MenuManager.cs" />
     <Compile Include="Menu\MenuAction.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\CD.cs" />
+    <Compile Include="Models\IMedia.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaManager.cs" />
     <Compile Include="Program.cs" />
