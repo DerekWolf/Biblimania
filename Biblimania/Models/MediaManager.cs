@@ -9,50 +9,47 @@ namespace Biblimania.Models
 {
     static class MediaManager
     {
-        static public List<Media> Medias { get; private set; }
-        
-        static public void Initialize()
-        {
-            Medias = GetAll();
-        }
-
         public static void Save<T>(T media)
         {
-            throw new NotImplementedException();
-            // TODO
+            ListMedia.Add(media as Media);
+            // TODO Query
         }
 
         public static Media Get<T>(T media)
         {
             throw new NotImplementedException();
-            // TODO
+            // TODO Query
         }
 
         public static List<Media> GetAll()
         {
             List<Media> list = new List<Media>();
-
-            // TODO
+            ListMedia.Initialize(list);
+            // TODO Query
 
             return list;
         }
 
         public static void Remove<T>(T media)
         {
-            throw new NotImplementedException();
-            // TODO
+            ListMedia.Remove(media as Media);
+            // TODO Query
         }
 
         public static void BringBack<T>(T media) where T : IMedia
         {
+            ListMedia.Remove(media as Media);
             media.BringBack();
-            // TODO
+            ListMedia.Add(media as Media);
+            // TODO Query
         }
 
         public static void Borrow<T>(T media) where T : IMedia
         {
+            ListMedia.Remove(media as Media);
             media.Borrow();
-            // TODO
+            ListMedia.Add(media as Media);
+            // TODO Query
         }
     }
 }

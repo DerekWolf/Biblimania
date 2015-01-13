@@ -22,8 +22,7 @@ namespace Biblimania
         {
             try
             {
-                // Retrieve all Medias available
-                MediaManager.Initialize();
+                ListMedia.Initialize();
 
                 // Initialize the Borrowed listener
                 MediaEventListener listener = new MediaEventListener();

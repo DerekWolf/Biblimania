@@ -75,6 +75,7 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\CD.cs" />
     <Compile Include="Models\IMedia.cs" />
+    <Compile Include="Models\ListMedia.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaManager.cs" />
     <Compile Include="Program.cs" />
