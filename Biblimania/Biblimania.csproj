@@ -63,6 +63,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BiblimaniaDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="BiblimaniaDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BiblimaniaDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Connection\ConnectionManager.cs" />
     <Compile Include="Menu\MenuManager.cs" />
     <Compile Include="Menu\MenuAction.cs" />
@@ -89,6 +94,17 @@
     </None>
     <None Include="BiblimaniaDataSet.xss">
       <DependentUpon>BiblimaniaDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="BiblimaniaDataSet1.xsc">
+      <DependentUpon>BiblimaniaDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="BiblimaniaDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BiblimaniaDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BiblimaniaDataSet1.xss">
+      <DependentUpon>BiblimaniaDataSet1.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
