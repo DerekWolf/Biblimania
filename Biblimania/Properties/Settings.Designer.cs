@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Bibliemania.Properties {
+namespace Biblimania.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

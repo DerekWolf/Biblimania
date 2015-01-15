@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Biblimania.Models;
 
 namespace Biblimania.Menu
 {
@@ -14,15 +15,17 @@ namespace Biblimania.Menu
         {
             // Liste d'ations possibles
             Action = new List<MenuAction>();
-            Action.Add(DoSomething(ListerTout, "Lister tout."));
-            Action.Add(DoSomething(RechercherLivre, "Rechercher un livre."));
-            Action.Add(DoSomething(RechercherCD, "Rechercher un CD."));
-            Action.Add(DoSomething(EmprunterLivre, "Emprunter un livre."));
-            Action.Add(DoSomething(RamenerLivre, "Ramener un livre."));
-            Action.Add(DoSomething(AjouterLivre, "Ajouter un livre."));
-            Action.Add(DoSomething(AjouterCD, "Ajouter un CD."));
-            Action.Add(DoSomething(SupprimerLivre, "Supprimer un livre."));
-            Action.Add(DoSomething(SupprimerCD, "Supprimer un CD."));
+            Action.Add(DoSomething(ListAll, "Lister tout."));
+            Action.Add(DoSomething(SearchBook, "Rechercher un livre."));
+            Action.Add(DoSomething(SearchCD, "Rechercher un CD."));
+            Action.Add(DoSomething(BorrowBook, "Emprunter un livre."));
+            Action.Add(DoSomething(BorrowCD, "Emprunter un CD."));
+            Action.Add(DoSomething(BringBackBook, "Ramener un livre."));
+            Action.Add(DoSomething(BringBackCD, "Ramener un CD."));
+            Action.Add(DoSomething(AddBook, "Ajouter un livre."));
+            Action.Add(DoSomething(AddCD, "Ajouter un CD."));
+            Action.Add(DoSomething(RemoveBook, "Supprimer un livre."));
+            Action.Add(DoSomething(RemoveCD, "Supprimer un CD."));
         }
 
         public delegate MenuAction Act(String desc);
@@ -54,11 +57,7 @@ namespace Biblimania.Menu
                 {
                     break;
                 }
-                else if (int.TryParse(choix, out Choix))
-                {
-                    Choix = int.Parse(choix);
-                }
-                else
+                if (! int.TryParse(choix, out Choix))
                 {
                     continue;
                 }
@@ -92,6 +91,12 @@ namespace Biblimania.Menu
                     case 8:
                         Action[8].ActionToDo.Invoke();
                         break;
+                    case 9:
+                        Action[9].ActionToDo.Invoke();
+                        break;
+                    case 10:
+                        Action[10].ActionToDo.Invoke();
+                        break;
                     default:
                         Console.WriteLine("Choix erroné.");
                         break;
@@ -102,49 +107,117 @@ namespace Biblimania.Menu
             Console.ReadLine();
         }
 
-        private MenuAction ListerTout(String desc)
+        private MenuAction ListAll(String desc)
         {
-            return new MenuAction(desc, () => { });
+            return new MenuAction(desc, () =>
+            {
+                List<Media> list = MediaManager.GetAll();
+                foreach (Media media in list)
+                {
+                    Console.WriteLine(media.ToString());
+                }
+            });
         }
 
-        private MenuAction AjouterLivre(String desc)
+        private MenuAction AddBook(String desc)
         {
-            return new MenuAction(desc, () => { });
+            return new MenuAction(desc, () =>
+            {
+                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
+                String titre = QuestionMenuManager.Ask<String>("Titre ?");
+                int nbStock = QuestionMenuManager.Ask<int>("Nombre en stock ?");
+                String artiste = QuestionMenuManager.Ask<String>("Artiste ?");
+                String style = QuestionMenuManager.Ask<String>("Style ?");
+                Book book = new Book(id, titre, nbStock, artiste, style);
+                MediaManager.Save<Book>(book);
+            });
         }
 
-        private MenuAction AjouterCD(String desc)
+        private MenuAction AddCD(String desc)
         {
-            return new MenuAction(desc, () => { });
+            return new MenuAction(desc, () =>
+            {
+                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
+                String titre = QuestionMenuManager.Ask<String>("Titre ?");
+                int nbStock = QuestionMenuManager.Ask<int>("Nombre en stock ?");
+                String auteur = QuestionMenuManager.Ask<String>("Auteur ?");
+                int isbn = QuestionMenuManager.Ask<int>("ISBN ?");
+                String genre = QuestionMenuManager.Ask<String>("Genre ?");
+                CD cd = new CD(id, titre, nbStock, auteur, isbn, genre);
+                MediaManager.Save<CD>(cd);
+            });
         }
 
-        private MenuAction SupprimerLivre(String desc)
+        private MenuAction RemoveBook(String desc)
         {
-            return new MenuAction(desc, () => { });
+            return new MenuAction(desc, () =>
+            {
+                Book book = new Book(QuestionMenuManager.Ask<int>("Identifiant ?"));
+                MediaManager.Remove<Book>(book);
+            });
         }
 
-        private MenuAction SupprimerCD(String desc)
+        private MenuAction RemoveCD(String desc)
         {
-            return new MenuAction(desc, () => { });
+            return new MenuAction(desc, () =>
+            {
+                CD cd = new CD(QuestionMenuManager.Ask<int>("Identifiant ?"));
+                MediaManager.Remove<CD>(cd);
+            });
         }
 
-        private MenuAction RechercherLivre(String desc)
+        private MenuAction SearchBook(String desc)
         {
-            return new MenuAction(desc, () => { });
+            return new MenuAction(desc, () =>
+            {
+                Book book = new Book(QuestionMenuManager.Ask<int>("Identifiant ?"));
+                MediaManager.Get<Book>(book);
+            });
         }
 
-        private MenuAction RechercherCD(String desc)
+        private MenuAction SearchCD(String desc)
         {
-            return new MenuAction(desc, () => { });
+            return new MenuAction(desc, () =>
+            {
+                CD cd = new CD(QuestionMenuManager.Ask<int>("Identifiant ?"));
+                MediaManager.Get<CD>(cd);
+            });
         }
 
-        private MenuAction EmprunterLivre(String desc)
+        private MenuAction BorrowBook(String desc)
         {
-            return new MenuAction(desc, () => { });
+            return new MenuAction(desc, () =>
+            {
+                Book book = new Book(QuestionMenuManager.Ask<int>("Identifiant ?"));
+                MediaManager.Borrow<Book>(book);
+            });
         }
 
-        private MenuAction RamenerLivre(String desc)
+        private MenuAction BorrowCD(String desc)
         {
-            return new MenuAction(desc, () => { });
+            return new MenuAction(desc, () =>
+            {
+                CD cd = new CD(QuestionMenuManager.Ask<int>("Identifiant ?"));
+                MediaManager.Borrow<CD>(cd);
+            });
+        }
+
+        private MenuAction BringBackBook(String desc)
+        {
+            return new MenuAction(desc, () =>
+            {
+                Book book = new Book(QuestionMenuManager.Ask<int>("Identifiant ?"));
+                MediaManager.BringBack<Book>(book);
+            });
+        }
+
+        private MenuAction BringBackCD(String desc)
+        {
+            return new MenuAction(desc, () =>
+            {
+                CD cd = new CD(QuestionMenuManager.Ask<int>("Identifiant ?"));
+                MediaManager.BringBack<CD>(cd);
+            });
         }
     }
 }
