@@ -11,20 +11,14 @@ namespace Biblimania.Models
     {
         static public event EventHandler Borrowed;
 
-        protected int Identifiant;
-        protected string Titre;
-        protected int NombreEnStock;
+        public int Identifiant { get; set; }
+        public string Title { get; set; }
+        public uint Stock { get; set; }
 
-        public Media(int id)
+        public Media(string titre, uint nmbStock)
         {
-            Identifiant = id;
-        }
-
-        public Media(int id, string titre, int nmbStock)
-        {
-            Identifiant = id;
-            Titre = titre;
-            NombreEnStock = nmbStock;
+            Title = titre;
+            Stock = nmbStock;
         }
 
         protected virtual void OnBorrowed(EventArgs e)
@@ -37,18 +31,7 @@ namespace Biblimania.Models
 
         public void Borrow()
         {
-            NombreEnStock--;
             OnBorrowed(EventArgs.Empty);
-        }
-
-        public void BringBack()
-        {
-            NombreEnStock++;
-        }
-
-        public virtual string ToString()
-        {
-            return "Media " + Identifiant + ", " + Titre + ", " + NombreEnStock + " en stock.";
         }
     }
 }

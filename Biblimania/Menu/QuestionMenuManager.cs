@@ -23,6 +23,11 @@ namespace Biblimania.Menu
                     Console.WriteLine("Erreur de format. Le type attendu est {0}. Veuillez re-essayer.", typeof(T).Name);
                     Program.appLogger.Write(AppLogger.TypeError.Error, e.Message);
                 }
+                catch (OverflowException e)
+                {
+                    Console.WriteLine("La valeur était trop grande ou trop petite pour un {0}. Veuillez re-essayer.", typeof(T).Name);
+                    Program.appLogger.Write(AppLogger.TypeError.Error, e.Message);
+                }
             }
         }
     }

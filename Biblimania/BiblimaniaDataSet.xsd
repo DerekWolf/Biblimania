@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="BiblimaniaConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="BiblimaniaConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.TPfinal.Properties.Settings.GlobalReference.Default.BiblimaniaConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="BiblimaniaConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="BiblimaniaConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Biblimania.Properties.Settings.GlobalReference.Default.BiblimaniaConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables />
         <Sources />

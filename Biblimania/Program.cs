@@ -22,7 +22,7 @@ namespace Biblimania
         {
             try
             {
-                ListMedia.Initialize();
+                MediaManager.CreateDataset();
 
                 // Initialize the Borrowed listener
                 MediaEventListener listener = new MediaEventListener();
@@ -33,6 +33,7 @@ namespace Biblimania
             catch (Exception e)
             {
                 appLogger.Write(AppLogger.TypeError.Error, e.Message, e.Source);
+                Console.WriteLine("{0} L'application  va maintenant se fermer.", e.Message);
             }
         }
     }

@@ -11,6 +11,7 @@
     <AssemblyName>Biblimania</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,7 +24,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -66,11 +66,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BiblimaniaDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="BiblimaniaDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BiblimaniaDataSet1.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Connection\ConnectionManager.cs" />
     <Compile Include="Listeners\AppLogger.cs" />
     <Compile Include="Listeners\MediaEventListener.cs" />
@@ -80,7 +75,6 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\CD.cs" />
     <Compile Include="Models\IMedia.cs" />
-    <Compile Include="Models\ListMedia.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaManager.cs" />
     <Compile Include="Program.cs" />
@@ -104,30 +98,10 @@
     <None Include="BiblimaniaDataSet.xss">
       <DependentUpon>BiblimaniaDataSet.xsd</DependentUpon>
     </None>
-    <None Include="BiblimaniaDataSet1.xsc">
-      <DependentUpon>BiblimaniaDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="BiblimaniaDataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BiblimaniaDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="BiblimaniaDataSet1.xss">
-      <DependentUpon>BiblimaniaDataSet1.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Biblimania.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biblimania_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>Biblimania.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -146,7 +120,15 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Biblimania.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biblimania_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>Biblimania.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

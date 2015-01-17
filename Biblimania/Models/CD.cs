@@ -8,25 +8,18 @@ namespace Biblimania.Models
 {
     class CD : Media
     {
-        public string Auteur { get; set; }
-        public int NumeroISBN { get; set; }
-        public string Genre { get; set; }
+        public string Artist { get; private set; }
+        public string Style { get; private set; }
 
-        public CD(int id) : base(id)
+        public CD(string titre, uint nbStock, string artiste, string style) : base(titre, nbStock)
         {
-
-        }
-
-        public CD(int id, string titre, int nbStock, string auteur, int isbn, string genre) : base(id,  titre, nbStock)
-        {
-            Auteur = auteur;
-            NumeroISBN = isbn;
-            Genre = genre;
+            Artist = artiste;
+            Style = style;
         }
 
         public override string ToString()
         {
-            return "CD " + Identifiant + ", " + Titre + ", " + NombreEnStock + " en stock, par " + Auteur + ", ISBN : " + NumeroISBN + ", Genre : " + Genre;
+            return "CD " + Identifiant + ", " + Title + ", " + Stock + " en stock, par " + Artist + ", Style : " + Style;
         }
     }
 }

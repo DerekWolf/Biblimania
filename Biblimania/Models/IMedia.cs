@@ -9,6 +9,5 @@ namespace Biblimania.Models
     interface IMedia
     {
         void Borrow();
-        void BringBack();
     }
 }

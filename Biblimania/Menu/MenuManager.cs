@@ -41,14 +41,14 @@ namespace Biblimania.Menu
             {
                 int i = 0;
 
-                //Liste les action dans la console
+                // Liste les action dans la console
                 foreach (MenuAction act in Action)
                 {
                     Console.WriteLine("{0}. {1}", i, act.Description);
                     i++;
                 }
 
-                //Choix d'action
+                // Choix d'action
                 Console.WriteLine("Entrez un numéro d'action (exit pour quitter) : ");
                 string choix = Console.ReadLine();
                 int Choix;
@@ -123,12 +123,12 @@ namespace Biblimania.Menu
         {
             return new MenuAction(desc, () =>
             {
-                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
                 String titre = QuestionMenuManager.Ask<String>("Titre ?");
-                int nbStock = QuestionMenuManager.Ask<int>("Nombre en stock ?");
-                String artiste = QuestionMenuManager.Ask<String>("Artiste ?");
-                String style = QuestionMenuManager.Ask<String>("Style ?");
-                Book book = new Book(id, titre, nbStock, artiste, style);
+                uint nbStock = QuestionMenuManager.Ask<uint>("Nombre en stock ?");
+                String auteur = QuestionMenuManager.Ask<String>("Auteur ?");
+                int isbn = QuestionMenuManager.Ask<int>("ISBN ?");
+                String genre = QuestionMenuManager.Ask<String>("Genre ?");
+                Book book = new Book(titre, nbStock, auteur, isbn, genre);
                 MediaManager.Save<Book>(book);
             });
         }
@@ -137,13 +137,11 @@ namespace Biblimania.Menu
         {
             return new MenuAction(desc, () =>
             {
-                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
                 String titre = QuestionMenuManager.Ask<String>("Titre ?");
-                int nbStock = QuestionMenuManager.Ask<int>("Nombre en stock ?");
-                String auteur = QuestionMenuManager.Ask<String>("Auteur ?");
-                int isbn = QuestionMenuManager.Ask<int>("ISBN ?");
-                String genre = QuestionMenuManager.Ask<String>("Genre ?");
-                CD cd = new CD(id, titre, nbStock, auteur, isbn, genre);
+                uint nbStock = QuestionMenuManager.Ask<uint>("Nombre en stock ?");
+                String artiste = QuestionMenuManager.Ask<String>("Artiste ?");
+                String style = QuestionMenuManager.Ask<String>("Style ?");
+                CD cd = new CD(titre, nbStock, artiste, style);
                 MediaManager.Save<CD>(cd);
             });
         }
@@ -152,8 +150,8 @@ namespace Biblimania.Menu
         {
             return new MenuAction(desc, () =>
             {
-                Book book = new Book(QuestionMenuManager.Ask<int>("Identifiant ?"));
-                MediaManager.Remove<Book>(book);
+                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
+                MediaManager.Remove<Book>(id);
             });
         }
 
@@ -161,8 +159,8 @@ namespace Biblimania.Menu
         {
             return new MenuAction(desc, () =>
             {
-                CD cd = new CD(QuestionMenuManager.Ask<int>("Identifiant ?"));
-                MediaManager.Remove<CD>(cd);
+                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
+                MediaManager.Remove<CD>(id);
             });
         }
 
@@ -170,8 +168,10 @@ namespace Biblimania.Menu
         {
             return new MenuAction(desc, () =>
             {
-                Book book = new Book(QuestionMenuManager.Ask<int>("Identifiant ?"));
-                MediaManager.Get<Book>(book);
+                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
+                Book m = MediaManager.Get<Book>(id) as Book;
+                Console.WriteLine(m.ToString());
+
             });
         }
 
@@ -179,8 +179,9 @@ namespace Biblimania.Menu
         {
             return new MenuAction(desc, () =>
             {
-                CD cd = new CD(QuestionMenuManager.Ask<int>("Identifiant ?"));
-                MediaManager.Get<CD>(cd);
+                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
+                CD cd = MediaManager.Get<CD>(id) as CD;
+                Console.WriteLine(cd.ToString());
             });
         }
 
@@ -188,8 +189,8 @@ namespace Biblimania.Menu
         {
             return new MenuAction(desc, () =>
             {
-                Book book = new Book(QuestionMenuManager.Ask<int>("Identifiant ?"));
-                MediaManager.Borrow<Book>(book);
+                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
+                MediaManager.Borrow<Book>(id);
             });
         }
 
@@ -197,8 +198,8 @@ namespace Biblimania.Menu
         {
             return new MenuAction(desc, () =>
             {
-                CD cd = new CD(QuestionMenuManager.Ask<int>("Identifiant ?"));
-                MediaManager.Borrow<CD>(cd);
+                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
+                MediaManager.Borrow<CD>(id);
             });
         }
 
@@ -206,8 +207,8 @@ namespace Biblimania.Menu
         {
             return new MenuAction(desc, () =>
             {
-                Book book = new Book(QuestionMenuManager.Ask<int>("Identifiant ?"));
-                MediaManager.BringBack<Book>(book);
+                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
+                MediaManager.BringBack<Book>(id);
             });
         }
 
@@ -215,8 +216,8 @@ namespace Biblimania.Menu
         {
             return new MenuAction(desc, () =>
             {
-                CD cd = new CD(QuestionMenuManager.Ask<int>("Identifiant ?"));
-                MediaManager.BringBack<CD>(cd);
+                int id = QuestionMenuManager.Ask<int>("Identifiant ?");
+                MediaManager.BringBack<CD>(id);
             });
         }
     }
