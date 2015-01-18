@@ -20,6 +20,59 @@ namespace Biblimania.Models
 
         private static string ConnectionString = ConfigurationManager.ConnectionStrings["Biblimania.Properties.Settings.BiblimaniaConnectionString"].ConnectionString;
 
+        private static SqlConnection connection = new SqlConnection(ConnectionString);
+
+        public static void UpdateDB()
+        {
+            OpenConnection();
+            SqlDataAdapter adapterBook = new SqlDataAdapter("SELECT * FROM Book", connection);
+            SqlCommandBuilder builderBook = new SqlCommandBuilder(adapterBook);
+
+            // Insert the data table into the SQL database.
+            //
+            adapterBook.Update(biblimania, "Book");
+
+            SqlDataAdapter adapterCD = new SqlDataAdapter("SELECT * FROM CD", connection);
+            SqlCommandBuilder builderCD = new SqlCommandBuilder(adapterCD);
+
+            // Insert the data table into the SQL database.
+            //
+            adapterCD.Update(biblimania, "CD");
+            CloseConnection();
+        }
+
+        public static void OpenConnection()
+        {
+            connection.Open();
+        }
+
+        public static void CloseConnection()
+        {
+            connection.Close();
+        }
+
+        public static void FillDataSet()
+        {
+            OpenConnection();
+            using (var adapter = new SqlDataAdapter("SELECT * FROM Book", connection))
+            using (new SqlCommandBuilder(adapter))
+            {
+                //
+                // Fill the DataAdapter with the values in the DataTable.
+                //
+                adapter.Fill(biblimania, "Book");
+            }
+            using (var adapter = new SqlDataAdapter("SELECT * FROM CD", connection))
+            using (new SqlCommandBuilder(adapter))
+            {
+                //
+                // Fill the DataAdapter with the values in the DataTable.
+                //
+                adapter.Fill(biblimania, "CD");
+            }
+            CloseConnection();
+        }
+
         public static void CreateDataset()
         {
             biblimania = new DataSet("Biblimania");
@@ -29,55 +82,59 @@ namespace Biblimania.Models
             biblimania.Tables.Add(book);
             biblimania.Tables.Add(cd);
 
-            DataColumn idCol = new DataColumn("id");
-            idCol.DataType = System.Type.GetType("System.Int32");
-            idCol.AutoIncrement = true;
-            idCol.AutoIncrementSeed = 0;
-            idCol.AutoIncrementStep = 1;
-            book.Columns.Add(idCol);
+            DataColumn idColBook = new DataColumn("Id");
+            idColBook.DataType = System.Type.GetType("System.Int32");
+            idColBook.AutoIncrement = true;
+            idColBook.AutoIncrementSeed = 0;
+            idColBook.AutoIncrementStep = 1;
+            book.Columns.Add(idColBook);
 
-            DataColumn titleCol = new DataColumn("title");
-            titleCol.DataType = System.Type.GetType("System.String");
-            book.Columns.Add(titleCol);
+            DataColumn titleColBook = new DataColumn("Title");
+            titleColBook.DataType = System.Type.GetType("System.String");
+            book.Columns.Add(titleColBook);
 
-            DataColumn stockCol = new DataColumn("stock");
-            stockCol.DataType = System.Type.GetType("System.UInt32");
-            book.Columns.Add(stockCol);
+            DataColumn stockColBook = new DataColumn("Stock");
+            stockColBook.DataType = System.Type.GetType("System.UInt32");
+            book.Columns.Add(stockColBook);
 
-            DataColumn authorCol = new DataColumn("author");
-            authorCol.DataType = System.Type.GetType("System.String");
-            book.Columns.Add(authorCol);
+            DataColumn authorColBook = new DataColumn("Author");
+            authorColBook.DataType = System.Type.GetType("System.String");
+            book.Columns.Add(authorColBook);
 
-            DataColumn isbnCol = new DataColumn("isbn");
-            isbnCol.DataType = System.Type.GetType("System.Int32");
-            book.Columns.Add(isbnCol);
+            DataColumn isbnColBook = new DataColumn("ISBN");
+            isbnColBook.DataType = System.Type.GetType("System.Int32");
+            book.Columns.Add(isbnColBook);
 
-            DataColumn genderCol = new DataColumn("gender");
-            genderCol.DataType = System.Type.GetType("System.String");
-            book.Columns.Add(genderCol);
+            DataColumn genderColBook = new DataColumn("Gender");
+            genderColBook.DataType = System.Type.GetType("System.String");
+            book.Columns.Add(genderColBook);
 
-            DataColumn idCol2 = new DataColumn("id");
-            idCol2.DataType = System.Type.GetType("System.Int32");
-            idCol2.AutoIncrement = true;
-            idCol2.AutoIncrementSeed = 0;
-            idCol2.AutoIncrementStep = 1;
-            cd.Columns.Add(idCol2);
+            book.PrimaryKey = new DataColumn[] { idColBook };
 
-            DataColumn titleCol2 = new DataColumn("title");
-            titleCol.DataType = System.Type.GetType("System.String");
-            cd.Columns.Add(titleCol2);
+            DataColumn idColCD = new DataColumn("Id");
+            idColCD.DataType = System.Type.GetType("System.Int32");
+            idColCD.AutoIncrement = true;
+            idColCD.AutoIncrementSeed = 0;
+            idColCD.AutoIncrementStep = 1;
+            cd.Columns.Add(idColCD);
 
-            DataColumn stockCol2 = new DataColumn("stock");
-            stockCol2.DataType = System.Type.GetType("System.UInt32");
-            cd.Columns.Add(stockCol2);
+            DataColumn titleColCD = new DataColumn("Title");
+            titleColCD.DataType = System.Type.GetType("System.String");
+            cd.Columns.Add(titleColCD);
 
-            DataColumn artistCol = new DataColumn("artist");
-            artistCol.DataType = System.Type.GetType("System.String");
-            cd.Columns.Add(artistCol);
+            DataColumn stockColCD = new DataColumn("Stock");
+            stockColCD.DataType = System.Type.GetType("System.UInt32");
+            cd.Columns.Add(stockColCD);
 
-            DataColumn styleCol = new DataColumn("style");
-            styleCol.DataType = System.Type.GetType("System.String");
-            cd.Columns.Add(styleCol);
+            DataColumn artistColCD = new DataColumn("Artist");
+            artistColCD.DataType = System.Type.GetType("System.String");
+            cd.Columns.Add(artistColCD);
+
+            DataColumn styleColCD = new DataColumn("Style");
+            styleColCD.DataType = System.Type.GetType("System.String");
+            cd.Columns.Add(styleColCD);
+
+            cd.PrimaryKey = new DataColumn[] { idColCD };
         }
 
         public static void Save<T>(T media) where T : IMedia
@@ -86,28 +143,25 @@ namespace Biblimania.Models
             {
                 DataRow newBookRow = book.NewRow();
                 Book newBook = media as Book;
-                newBookRow["title"] = newBook.Title;
-                newBookRow["stock"] = newBook.Stock;
-                newBookRow["author"] = newBook.Author;
-                newBookRow["isbn"] = newBook.ISBN;
-                newBookRow["gender"] = newBook.Gender;
+                newBookRow["Title"] = newBook.Title;
+                newBookRow["Stock"] = newBook.Stock;
+                newBookRow["Author"] = newBook.Author;
+                newBookRow["ISBN"] = newBook.ISBN;
+                newBookRow["Gender"] = newBook.Gender;
 
                 book.Rows.Add(newBookRow);
-                book.AcceptChanges();
-                biblimania.AcceptChanges();
             }
 
             if(typeof(T) == typeof(CD))
             {
                 DataRow newCDRow = cd.NewRow();
                 CD newCD = media as CD;
-                newCDRow["title"] = newCD.Title;
-                newCDRow["stock"] = newCD.Stock;
-                newCDRow["artist"] = newCD.Artist;
-                newCDRow["style"] = newCD.Style;
+                newCDRow["Title"] = newCD.Title;
+                newCDRow["Stock"] = newCD.Stock;
+                newCDRow["Artist"] = newCD.Artist;
+                newCDRow["Style"] = newCD.Style;
 
                 cd.Rows.Add(newCDRow);
-                cd.AcceptChanges();
             }
         }
 
@@ -115,17 +169,17 @@ namespace Biblimania.Models
         {
             if (typeof(T) == typeof(Book))
             {
-                DataRow dr = biblimania.Tables["Book"].Select("id = " + id)[0];
-                Book b = new Book((string) dr["title"], (uint) dr["stock"], (string) dr["author"], (int) dr["isbn"], (string) dr["gender"]);
-                b.Identifiant = (int) dr["id"];
+                DataRow dr = biblimania.Tables["Book"].Select("Id = " + id)[0];
+                Book b = new Book(dr["Title"].ToString(), uint.Parse(dr["Stock"].ToString()), dr["Author"].ToString(), int.Parse(dr["ISBN"].ToString()), dr["Gender"].ToString());
+                b.Identifiant = int.Parse(dr["Id"].ToString());
                 return b;
             }
 
             if (typeof(T) == typeof(CD))
             {
-                DataRow dr = biblimania.Tables["CD"].Select("id = " + id)[0];
-                CD c = new CD((string) dr["title"], (uint) dr["stock"], (string) dr["artist"], (string) dr["style"]);
-                c.Identifiant = (int) dr["id"];
+                DataRow dr = biblimania.Tables["CD"].Select("Id = " + id)[0];
+                CD c = new CD(dr["Title"].ToString(), uint.Parse(dr["Stock"].ToString()), dr["Artist"].ToString(), dr["Style"].ToString());
+                c.Identifiant = int.Parse(dr["Id"].ToString());
                 return c;
             }
             return null;
@@ -136,17 +190,17 @@ namespace Biblimania.Models
             List<Media> list = new List<Media>();
             DataRow[] drBook = biblimania.Tables["Book"].Select();
             DataRow[] drCD = biblimania.Tables["CD"].Select();
-            foreach (DataRow row in drBook)
+            foreach (DataRow dr in drBook)
             {
-                Book b = new Book((string)row["title"], (uint)row["stock"], (string)row["author"], (int)row["isbn"], (string)row["gender"]);
-                b.Identifiant = (int)row["id"];
+                Book b = new Book(dr["Title"].ToString(), uint.Parse(dr["Stock"].ToString()), dr["Author"].ToString(), int.Parse(dr["ISBN"].ToString()), dr["Gender"].ToString());
+                b.Identifiant = int.Parse(dr["Id"].ToString());
                 list.Add(b);
             }
 
-            foreach (DataRow row in drCD)
+            foreach (DataRow dr in drCD)
             {
-                CD c = new CD((string)row["title"], (uint)row["stock"], (string)row["artist"], (string)row["style"]);
-                c.Identifiant = (int)row["id"];
+                CD c = new CD(dr["Title"].ToString(), uint.Parse(dr["Stock"].ToString()), dr["Artist"].ToString(), dr["Style"].ToString());
+                c.Identifiant = int.Parse(dr["Id"].ToString());
                 list.Add(c);
             }
 
@@ -155,74 +209,91 @@ namespace Biblimania.Models
 
         public static void Remove<T>(int id)
         {
-            if (typeof(T) == typeof(Book))
+            try
             {
-                book.Rows.Remove(book.Rows.Find(id));
-            }
+                if (typeof(T) == typeof(Book))
+                {
+                    book.Rows.Find(id).Delete();
+                }
 
-            if (typeof(T) == typeof(CD))
+                if (typeof(T) == typeof(CD))
+                {
+                    cd.Rows.Find(id).Delete();
+                }
+            }
+            catch (Exception e)
             {
-                cd.Rows.Remove(cd.Rows.Find(id));
+                Console.WriteLine("ID introuvable");
             }
         }
 
         public static void BringBack<T>(int id)
         {
-            if (typeof(T) == typeof(Book))
+            try
             {
-                DataRow dr = biblimania.Tables["Book"].Select("id = " + id)[0];
-                uint a = (uint)dr["stock"];
-                dr["stock"] = a + 1;
-                book.AcceptChanges();
+                if (typeof(T) == typeof(Book))
+                {
+                    DataRow dr = book.Rows.Find(id);
+                    uint a = uint.Parse(dr["Stock"].ToString());
+                    dr["Stock"] = a + 1;
 
-                Book bModified = Get<Book>(id) as Book;
+                    Book bModified = Get<Book>(id) as Book;
+                }
+                if (typeof(T) == typeof(CD))
+                {
+                    DataRow dr = cd.Rows.Find(id);
+                    uint a = uint.Parse(dr["Stock"].ToString());
+                    dr["Stock"] = a + 1;
+
+                    CD cdModified = Get<CD>(id) as CD;
+                }
             }
-            if (typeof(T) == typeof(CD))
+            catch (Exception e)
             {
-                DataRow dr = biblimania.Tables["CD"].Select("id = " + id)[0];
-                uint a = (uint) dr["stock"];
-                dr["stock"] = a + 1;
-                cd.AcceptChanges();
-
-                CD cdModified = Get<CD>(id) as CD;
+                Console.WriteLine("ID introuvable");
             }
         }
 
         public static void Borrow<T>(int id)
         {
-            if (typeof(T) == typeof(Book))
+            try 
             {
-                DataRow dr = biblimania.Tables["Book"].Select("id = " + id)[0];
-                uint a = (uint)dr["stock"];
-                if (a > 0)
+                if (typeof(T) == typeof(Book))
                 {
-                    dr["stock"] = a - 1;
-                    book.AcceptChanges();
+                    DataRow dr = book.Rows.Find(id);
+                    uint a = uint.Parse(dr["Stock"].ToString());
+                    if (a > 0)
+                    {
+                        dr["Stock"] = a - 1;
 
-                    Book bModified = Get<Book>(id) as Book;
-                    bModified.Borrow();
+                        Book bModified = Get<Book>(id) as Book;
+                        bModified.Borrow();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ce livre n'est plus disponible.");
+                    }
                 }
-                else
+                if (typeof(T) == typeof(CD))
                 {
-                    Console.WriteLine("Ce livre n'est plus disponible.");
+                    DataRow dr = cd.Rows.Find(id);
+                    uint a = uint.Parse(dr["Stock"].ToString());
+                    if (a > 0)
+                    {
+                        dr["Stock"] = a - 1;
+
+                        CD cdModified = Get<CD>(id) as CD;
+                        cdModified.Borrow();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Cet album n'est plus disponible.");
+                    }
                 }
             }
-            if (typeof(T) == typeof(CD))
+            catch (Exception e)
             {
-                DataRow dr = biblimania.Tables["CD"].Select("id = " + id)[0];
-                uint a = (uint)dr["stock"];
-                if (a > 0)
-                {
-                    dr["stock"] = a - 1;
-                    cd.AcceptChanges();
-
-                    CD cdModified = Get<CD>(id) as CD;
-                    cdModified.Borrow();
-                }
-                else
-                {
-                    Console.WriteLine("Cet album n'est plus disponible.");
-                }
+                Console.WriteLine("ID introuvable");
             }
         }
     }

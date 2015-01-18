@@ -23,16 +23,20 @@ namespace Biblimania
             try
             {
                 MediaManager.CreateDataset();
+                MediaManager.FillDataSet();
 
                 // Initialize the Borrowed listener
                 MediaEventListener listener = new MediaEventListener();
 
                 menuManager = new MenuManager();
                 menuManager.Launch();
+
+                MediaManager.UpdateDB();
             }
             catch (Exception e)
             {
-                appLogger.Write(AppLogger.TypeError.Error, e.Message + e.StackTrace, e.Source);
+                Console.WriteLine(e.StackTrace);
+                appLogger.Write(AppLogger.TypeError.Error, e.Message, e.Source);
                 Console.WriteLine("{0} L'application  va maintenant se fermer.", e.Message);
                 Console.ReadLine();
             }
