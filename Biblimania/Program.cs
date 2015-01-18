@@ -32,8 +32,9 @@ namespace Biblimania
             }
             catch (Exception e)
             {
-                appLogger.Write(AppLogger.TypeError.Error, e.Message, e.Source);
+                appLogger.Write(AppLogger.TypeError.Error, e.Message + e.StackTrace, e.Source);
                 Console.WriteLine("{0} L'application  va maintenant se fermer.", e.Message);
+                Console.ReadLine();
             }
         }
     }

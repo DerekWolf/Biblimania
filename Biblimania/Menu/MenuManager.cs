@@ -62,49 +62,16 @@ namespace Biblimania.Menu
                     continue;
                 }
 
-                switch (Choix)
+                if (Choix >= 0 && Choix <= 10)
                 {
-                    case 0:
-                        Action[0].ActionToDo.Invoke();
-                        break;
-                    case 1:
-                        Action[1].ActionToDo.Invoke();
-                        break;
-                    case 2:
-                        Action[2].ActionToDo.Invoke();
-                        break;
-                    case 3:
-                        Action[3].ActionToDo.Invoke();
-                        break;
-                    case 4:
-                        Action[4].ActionToDo.Invoke();
-                        break;
-                    case 5:
-                        Action[5].ActionToDo.Invoke();
-                        break;
-                    case 6:
-                        Action[6].ActionToDo.Invoke();
-                        break;
-                    case 7:
-                        Action[7].ActionToDo.Invoke();
-                        break;
-                    case 8:
-                        Action[8].ActionToDo.Invoke();
-                        break;
-                    case 9:
-                        Action[9].ActionToDo.Invoke();
-                        break;
-                    case 10:
-                        Action[10].ActionToDo.Invoke();
-                        break;
-                    default:
-                        Console.WriteLine("Choix erroné.");
-                        break;
+                    Action[Choix].ActionToDo.Invoke();
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("Choix erroné. Veuillez recommencé");
                 }
             }
-
-            // Attend input user pour terminer
-            Console.ReadLine();
         }
 
         private MenuAction ListAll(String desc)

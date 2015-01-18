@@ -31,6 +31,9 @@ namespace Biblimania.Models
 
             DataColumn idCol = new DataColumn("id");
             idCol.DataType = System.Type.GetType("System.Int32");
+            idCol.AutoIncrement = true;
+            idCol.AutoIncrementSeed = 0;
+            idCol.AutoIncrementStep = 1;
             book.Columns.Add(idCol);
 
             DataColumn titleCol = new DataColumn("title");
@@ -53,13 +56,11 @@ namespace Biblimania.Models
             genderCol.DataType = System.Type.GetType("System.String");
             book.Columns.Add(genderCol);
 
-            DataColumn idColumn = book.Columns["id"];
-            idColumn.AutoIncrement = true;
-            idColumn.AutoIncrementSeed = 0;
-            idColumn.AutoIncrementStep = 1;
-
             DataColumn idCol2 = new DataColumn("id");
             idCol2.DataType = System.Type.GetType("System.Int32");
+            idCol2.AutoIncrement = true;
+            idCol2.AutoIncrementSeed = 0;
+            idCol2.AutoIncrementStep = 1;
             cd.Columns.Add(idCol2);
 
             DataColumn titleCol2 = new DataColumn("title");
@@ -67,7 +68,7 @@ namespace Biblimania.Models
             cd.Columns.Add(titleCol2);
 
             DataColumn stockCol2 = new DataColumn("stock");
-            stockCol2.DataType = System.Type.GetType("System.Int32");
+            stockCol2.DataType = System.Type.GetType("System.UInt32");
             cd.Columns.Add(stockCol2);
 
             DataColumn artistCol = new DataColumn("artist");
@@ -77,11 +78,6 @@ namespace Biblimania.Models
             DataColumn styleCol = new DataColumn("style");
             styleCol.DataType = System.Type.GetType("System.String");
             cd.Columns.Add(styleCol);
-
-            DataColumn idCdColumn = cd.Columns["id"];
-            idColumn.AutoIncrement = true;
-            idColumn.AutoIncrementSeed = 0;
-            idColumn.AutoIncrementStep = 1;
         }
 
         public static void Save<T>(T media) where T : IMedia
@@ -128,9 +124,9 @@ namespace Biblimania.Models
             if (typeof(T) == typeof(CD))
             {
                 DataRow dr = biblimania.Tables["CD"].Select("id = " + id)[0];
-                CD cd = new CD((string) dr["title"], (uint) dr["stock"], (string) dr["artist"], (string) dr["style"]);
-                cd.Identifiant = (int) dr["id"];
-                return cd;
+                CD c = new CD((string) dr["title"], (uint) dr["stock"], (string) dr["artist"], (string) dr["style"]);
+                c.Identifiant = (int) dr["id"];
+                return c;
             }
             return null;
         }
@@ -149,9 +145,9 @@ namespace Biblimania.Models
 
             foreach (DataRow row in drCD)
             {
-                CD cd = new CD((string)row["title"], (uint)row["stock"], (string)row["artist"], (string)row["style"]);
-                cd.Identifiant = (int)row["id"];
-                list.Add(cd);
+                CD c = new CD((string)row["title"], (uint)row["stock"], (string)row["artist"], (string)row["style"]);
+                c.Identifiant = (int)row["id"];
+                list.Add(c);
             }
 
             return list;
