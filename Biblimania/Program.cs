@@ -9,6 +9,7 @@ using System.Data;
 using Biblimania.Menu;
 using Biblimania.Listeners;
 using Biblimania.Models;
+using Biblimania.Connection;
 
 namespace Biblimania
 {
@@ -22,8 +23,8 @@ namespace Biblimania
         {
             try
             {
-                MediaManager.CreateDataset();
-                MediaManager.FillDataSet();
+                Data.CreateDataset();
+                Data.FillDataSet();
 
                 // Initialize the Borrowed listener
                 MediaEventListener listener = new MediaEventListener();
@@ -31,11 +32,12 @@ namespace Biblimania
                 menuManager = new MenuManager();
                 menuManager.Launch();
 
-                MediaManager.UpdateDB();
+                // Done before closing
+                Data.UpdateDB();
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.StackTrace);
+                // Log the error, display a short message and wait for an input
                 appLogger.Write(AppLogger.TypeError.Error, e.Message, e.Source);
                 Console.WriteLine("{0} L'application  va maintenant se fermer.", e.Message);
                 Console.ReadLine();

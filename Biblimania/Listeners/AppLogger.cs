@@ -25,7 +25,11 @@ namespace Biblimania.Listeners
             Trace.Listeners.Add(new TextWriterTraceListener(_filePath, "TraceListener"));
         }
 
-        // Write a line in the log file with few informations
+        /// <summary>
+        /// Write a line in the log file with few informations
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="message"></param>
         public void Write(TypeError type, String message)
         {
             try
@@ -39,7 +43,12 @@ namespace Biblimania.Listeners
             }
         }
 
-        // A StackTrace or a Source can be set here in addition
+        /// <summary>
+        /// A StackTrace or a Source can be set here in addition
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="message"></param>
+        /// <param name="trace"></param>
         public void Write(TypeError type, String message, String trace)
         {
             try

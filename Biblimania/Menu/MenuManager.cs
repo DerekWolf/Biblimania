@@ -35,28 +35,33 @@ namespace Biblimania.Menu
             return act(desc);
         }
 
+        /// <summary>
+        /// Launch the menu interface
+        /// </summary>
         public void Launch()
         {
             while (true)
             {
                 int i = 0;
 
-                // Liste les action dans la console
+                // Display the actions available
                 foreach (MenuAction act in Action)
                 {
                     Console.WriteLine("{0}. {1}", i, act.Description);
                     i++;
                 }
 
-                // Choix d'action
+                // Ask the user for the action to do
                 Console.WriteLine("Entrez un numéro d'action (exit pour quitter) : ");
                 string choix = Console.ReadLine();
                 int Choix;
 
+                // The input for exiting
                 if (choix == "exit")
                 {
                     break;
                 }
+
                 if (! int.TryParse(choix, out Choix))
                 {
                     continue;

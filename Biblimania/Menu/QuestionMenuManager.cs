@@ -8,6 +8,12 @@ namespace Biblimania.Menu
 {
     static class QuestionMenuManager
     {
+        /// <summary>
+        /// Ask a type of answer to the user
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="question"></param>
+        /// <returns></returns>
         public static T Ask<T>(String question)
         {
             while (true)

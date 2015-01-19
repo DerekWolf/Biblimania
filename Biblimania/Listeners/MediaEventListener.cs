@@ -15,6 +15,11 @@ namespace Biblimania.Listeners
             Media.Borrowed += new EventHandler(MediaBorrowed);
         }
 
+        /// <summary>
+        /// Display which Media is borrowed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MediaBorrowed(object sender, EventArgs e)
         {
             Media media = sender as Media;
